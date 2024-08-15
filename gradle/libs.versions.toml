@@ -10,7 +10,7 @@ material = "1.12.0"
 activity = "1.9.1"
 constraintlayout = "2.1.4"
 retrofit = "2.11.0"
-daggerAndroid = "2.52"
+dagger = "2.52"
 okhttp = "4.12.0"
 rxandroid = "3.0.2"
 rxjava = "3.1.9"
@@ -26,9 +26,9 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 
 #Dagger
-dagger-android = { module = "com.google.dagger:dagger-android", version.ref = "daggerAndroid" }
-dagger-android-processor = { module = "com.google.dagger:dagger-android-processor", version.ref = "daggerAndroid" }
-dagger-android-support = { module = "com.google.dagger:dagger-android-support", version.ref = "daggerAndroid" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+
 
 #RxJava
 rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }

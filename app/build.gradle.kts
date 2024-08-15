@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    kotlin("kapt")
 }
 
 android {
@@ -33,6 +34,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -44,9 +48,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
 
     //Dagger
-    implementation(libs.dagger.android)
-    implementation(libs.dagger.android.support)
-    annotationProcessor(libs.dagger.android.processor)
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
 
     //Retrofit
     implementation(libs.retrofit.adapter.rxjava3)
@@ -62,7 +65,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-
-
 }
