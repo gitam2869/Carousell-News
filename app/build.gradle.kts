@@ -42,8 +42,27 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
-    
+
+    //Dagger
+    implementation(libs.dagger.android)
+    implementation(libs.dagger.android.support)
+    annotationProcessor(libs.dagger.android.processor)
+
+    //Retrofit
+    implementation(libs.retrofit.adapter.rxjava3)
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.okhttp.client)
+    implementation(libs.okhttp.loggingInterceptor)
+
+    //RxJava
+    implementation(libs.rxandroid)
+    implementation(libs.rxjava)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+
+
 }
