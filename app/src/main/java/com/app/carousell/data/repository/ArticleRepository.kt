@@ -23,6 +23,13 @@ class ArticleRepository @Inject constructor(private val articleService: ArticleS
         callback(Response.Loading("Fetching Data"))
         articleService.getArticles()
             .subscribeOn(Schedulers.io())
+            .map {
+                it.map { article ->
+                    article.apply {
+                        article.creationDate = DateTimeUtils.getTimeAgoFromSeconds(article.timeCreated)
+                    }
+                }
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Articles> {
                 override fun onSubscribe(d: Disposable) {
@@ -47,11 +54,6 @@ class ArticleRepository @Inject constructor(private val articleService: ArticleS
                 }
 
                 override fun onSuccess(t: Articles) {
-                    t.map {
-                        it.apply {
-                            it.creationDate = DateTimeUtils.getTimeAgoFromSeconds(it.timeCreated)
-                        }
-                    }
                     callback(Response.Success(t))
                 }
             })
