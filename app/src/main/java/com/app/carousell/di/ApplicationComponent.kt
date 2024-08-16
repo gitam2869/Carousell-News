@@ -1,5 +1,6 @@
 package com.app.carousell.di
 
+import com.app.carousell.ui.CarousellNewsFragment
 import com.app.carousell.ui.MainActivity
 import dagger.Component
 import javax.inject.Singleton
@@ -9,4 +10,6 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(activity: MainActivity)
+
+    fun inject(fragment: CarousellNewsFragment)
 }

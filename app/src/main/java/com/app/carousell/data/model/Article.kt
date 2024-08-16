@@ -3,6 +3,7 @@ package com.app.carousell.data.model
 import com.google.gson.annotations.SerializedName
 
 typealias Articles = List<Article>
+
 data class Article(
     @SerializedName("id")
     var id: String? = null,
@@ -13,7 +14,8 @@ data class Article(
     @SerializedName("banner_url")
     var bannerUrl: String? = null,
     @SerializedName("time_created")
-    var timeCreated: Int? = null,
+    var timeCreated: Long? = null,
     @SerializedName("rank")
-    var rank: Int? = null
+    var rank: Int? = null,
+    var creationDate: String = ""
 )

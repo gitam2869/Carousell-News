@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryColor">#d2232a</color>
+    <color name="primaryDarkColor">#a81c21</color>
+    <color name="primaryTextColor">#ffffff</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_color">#FF262629</color>
+    <color name="text_caption_color">#FF8F939C</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="background">#FFFFFF</color>
+    <color name="image_border">#FF979797</color>
+    <color name="gray">#BCBCBC</color>
+
+    <color name="news_articles_background">#edf0f7</color>
+
 </resources>

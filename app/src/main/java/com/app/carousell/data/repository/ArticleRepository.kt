@@ -1,9 +1,12 @@
 package com.app.carousell.data.repository
 
+import com.app.carousell.data.model.Article
 import com.app.carousell.data.model.Articles
 import com.app.carousell.data.remote.ArticleService
-import com.app.carousell.ui.ApiResponse
+import com.app.carousell.util.DateTimeUtils
+import com.app.carousell.util.Response
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
@@ -16,8 +19,8 @@ class ArticleRepository @Inject constructor(private val articleService: ArticleS
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun getArticles(callback: (ApiResponse<Articles>) -> Unit) {
-        callback(ApiResponse.Loading())
+    fun getArticles(callback: (Response<Articles>) -> Unit) {
+        callback(Response.Loading("Fetching Data"))
         articleService.getArticles()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -29,7 +32,7 @@ class ArticleRepository @Inject constructor(private val articleService: ArticleS
                 override fun onError(e: Throwable) {
                     val errorMessage = when (e) {
                         is HttpException -> {
-                            e.message()
+                            e.localizedMessage
                         }
 
                         is UnknownHostException -> {
@@ -40,14 +43,44 @@ class ArticleRepository @Inject constructor(private val articleService: ArticleS
                             "Something went wrong!"
                         }
                     }
-                    callback(ApiResponse.Error(message = errorMessage))
+                    callback(Response.Error(message = errorMessage))
                 }
 
                 override fun onSuccess(t: Articles) {
-                    callback(ApiResponse.Success(t))
+                    t.map {
+                        it.apply {
+                            it.creationDate = DateTimeUtils.getTimeAgoFromSeconds(it.timeCreated)
+                        }
+                    }
+                    callback(Response.Success(t))
                 }
             })
 
+    }
+
+    fun sortArticles(
+        articles: Articles,
+        comparator: Comparator<Article>,
+        callback: (Response<Articles>) -> Unit
+    ) {
+        callback(Response.Loading("Filtering Data"))
+        Single.fromCallable {
+            return@fromCallable articles.sortedWith(comparator)
+        }.subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : SingleObserver<Articles> {
+                override fun onSubscribe(d: Disposable) {
+                    compositeDisposable.add(d)
+                }
+
+                override fun onError(e: Throwable) {
+                    callback(Response.Error(message = "Filtering Not Possible"))
+                }
+
+                override fun onSuccess(t: Articles) {
+                    callback(Response.Success(t))
+                }
+            })
     }
 
     fun dispose() {
