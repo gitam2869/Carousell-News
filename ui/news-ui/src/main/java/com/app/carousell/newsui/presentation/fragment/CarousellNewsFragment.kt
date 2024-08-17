@@ -1,4 +1,4 @@
-package com.app.carousell.newsui
+package com.app.carousell.newsui.presentation.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -17,13 +17,15 @@ import com.app.carousell.common.extension.ViewExtension.setOnSingleClickListener
 import com.app.carousell.common.extension.ViewExtension.visible
 import com.app.carousell.core.coreComponent
 import com.app.carousell.newsdata.model.Articles
+import com.app.carousell.newsui.R
 import com.app.carousell.newsui.databinding.FragmentCarousellNewsBinding
-import com.app.carousell.newsui.di.DaggerNewsApplicationComponent
+import com.app.carousell.newsui.di.component.DaggerNewsApplicationComponent
+import com.app.carousell.newsui.presentation.adapter.ArticlesAdapter
+import com.app.carousell.newsui.presentation.viewmodel.ArticleViewModel
+import com.app.carousell.newsui.presentation.viewmodel.ArticleViewModelFactory
 import com.app.carousell.newsui.utils.ArticleSort
 import com.app.carousell.newsui.utils.ArticlesSortUtil
 import javax.inject.Inject
-
-private const val TAG = "CarousellNewsFragment"
 
 class CarousellNewsFragment : Fragment() {
 
@@ -42,8 +44,7 @@ class CarousellNewsFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        DaggerNewsApplicationComponent
-            .factory()
+        DaggerNewsApplicationComponent.factory()
             .create(coreComponent())
             .inject(this)
     }
@@ -195,4 +196,3 @@ class CarousellNewsFragment : Fragment() {
         _binding = null
     }
 }
-

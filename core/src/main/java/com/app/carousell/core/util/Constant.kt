@@ -1,4 +1,4 @@
-package com.app.carousell.core
+package com.app.carousell.core.util
 
 internal object Constant {
 

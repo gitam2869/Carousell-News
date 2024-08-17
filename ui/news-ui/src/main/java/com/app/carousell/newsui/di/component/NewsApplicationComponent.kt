@@ -1,9 +1,9 @@
-package com.app.carousell.newsui.di
+package com.app.carousell.newsui.di.component
 
 import com.app.carousell.common.scopes.Fragment
-import com.app.carousell.core.di.CoreComponent
-import com.app.carousell.newsdata.di.NewsDataModule
-import com.app.carousell.newsui.CarousellNewsFragment
+import com.app.carousell.core.di.component.CoreComponent
+import com.app.carousell.newsdata.di.module.NewsDataModule
+import com.app.carousell.newsui.presentation.fragment.CarousellNewsFragment
 import dagger.Component
 
 @Fragment

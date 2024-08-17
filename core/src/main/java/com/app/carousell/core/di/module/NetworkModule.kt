@@ -1,7 +1,7 @@
 package com.app.carousell.core.di.module
 
 import com.app.carousell.core.BuildConfig
-import com.app.carousell.core.Constant
+import com.app.carousell.core.util.Constant
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

@@ -4,8 +4,8 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
-import com.app.carousell.core.di.CoreComponent
-import com.app.carousell.core.di.DaggerCoreComponent
+import com.app.carousell.core.di.component.CoreComponent
+import com.app.carousell.core.di.component.DaggerCoreComponent
 
 class CarousellApplication : Application() {
 

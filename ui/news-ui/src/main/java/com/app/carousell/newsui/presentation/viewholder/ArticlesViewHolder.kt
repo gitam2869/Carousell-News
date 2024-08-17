@@ -1,10 +1,11 @@
-package com.app.carousell.newsui
+package com.app.carousell.newsui.presentation.viewholder
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.app.carousell.newsdata.model.Article
+import com.app.carousell.newsui.R
 import com.app.carousell.newsui.databinding.ItemArticleBinding
 import com.bumptech.glide.Glide
 

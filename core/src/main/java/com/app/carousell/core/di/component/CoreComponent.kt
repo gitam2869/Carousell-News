@@ -1,4 +1,4 @@
-package com.app.carousell.core.di
+package com.app.carousell.core.di.component
 
 import android.content.Context
 import android.content.SharedPreferences

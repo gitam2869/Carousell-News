@@ -1,4 +1,4 @@
-package com.app.carousell.newsui
+package com.app.carousell.newsui.presentation.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

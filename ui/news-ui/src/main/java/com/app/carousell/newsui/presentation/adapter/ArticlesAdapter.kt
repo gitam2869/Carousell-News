@@ -1,10 +1,11 @@
-package com.app.carousell.newsui
+package com.app.carousell.newsui.presentation.adapter
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.app.carousell.newsdata.model.Article
+import com.app.carousell.newsui.presentation.viewholder.ArticlesViewHolder
 
 class ArticlesAdapter : RecyclerView.Adapter<ArticlesViewHolder>() {
 

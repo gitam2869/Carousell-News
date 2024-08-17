@@ -1,4 +1,4 @@
-package com.app.carousell.newsdata.di
+package com.app.carousell.newsdata.di.module
 
 import com.app.carousell.newsdata.remote.NewsService
 import dagger.Module
