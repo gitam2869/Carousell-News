@@ -44,6 +44,9 @@ dependencies {
     implementation(project(":resource"))
     implementation(project(":ui:news-ui"))
 
+    //Splash screen for backward compatibility
+    implementation(libs.androidx.core.splashscreen)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -37,6 +37,8 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:minWidth="@dimen/toolbar_menu_icon_width"
             android:minHeight="@dimen/toolbar_menu_icon_height"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:src="@drawable/menu_horizontal_dots"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

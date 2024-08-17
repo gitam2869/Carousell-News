@@ -94,10 +94,14 @@ class CarousellNewsFragment : Fragment() {
                 is NetworkResult.Success -> {
                     hideLoading()
                     hideMessage()
-                    it.data?.let { it1 -> setArticlesData(it1) }
+                    it.data?.let { it1 ->
+                        setArticlesData(it1)
+                        showFilterMenu()
+                    }
                 }
 
                 is NetworkResult.Error -> {
+                    hideFilterMenu()
                     hideLoading()
                     showMessage(it.message ?: "")
                 }
@@ -115,6 +119,13 @@ class CarousellNewsFragment : Fragment() {
                 openPopupMenu(it)
             }
         }
+    }
+
+    private fun hideFilterMenu(){
+        binding.ivMenu.gone()
+    }
+    private fun showFilterMenu(){
+        binding.ivMenu.visible()
     }
 
     private fun showLoading() {

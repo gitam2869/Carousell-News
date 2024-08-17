@@ -18,7 +18,7 @@ dagger = "2.52"
 okhttp = "4.12.0"
 rxandroid = "3.0.2"
 rxjava = "3.1.9"
-
+splash = "1.0.1"
 minSdk = "21"
 
 [libraries]
@@ -59,6 +59,8 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 #Joda time
 android-joda = { module = "net.danlew:android.joda", version.ref = "jodaTime" }
 
+#Spalshscreen
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "splash" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
