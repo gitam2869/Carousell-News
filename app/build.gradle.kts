@@ -41,6 +41,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":resource"))
+    implementation(project(":ui:news-ui"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -52,26 +54,9 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 
-    //Retrofit
-    implementation(libs.retrofit.adapter.rxjava3)
-    implementation(libs.converter.gson)
-    implementation(libs.retrofit)
-    implementation(libs.okhttp.client)
-    implementation(libs.okhttp.loggingInterceptor)
-
-    //RxJava
-    implementation(libs.rxandroid)
-    implementation(libs.rxjava)
-
     //Navigation
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-
-    //Glide
-    implementation(libs.glide)
-
-    //Joda time
-    implementation(libs.android.joda)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
