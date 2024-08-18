@@ -8,17 +8,17 @@ import org.joda.time.Years
 
 object DateTimeUtils {
 
-    fun getTimeAgoFromSeconds(timestampInSeconds: Long?): String {
+    fun getTimeAgoFromSeconds(timestampInSeconds: Long?, currentTimeInMillis: Long = DateTime.now().millis): String {
         if (timestampInSeconds == null || timestampInSeconds <= 0) return ""
         var timeInMillis = timestampInSeconds
         if(timestampInSeconds.toString().length == 10) //currently assume 10 digits represents seconds as per api response
             timeInMillis *= 1000
 
-        return getTimeAgoFromMilliSeconds(timeInMillis)
+        return getTimeAgoFromMilliSeconds(timeInMillis, currentTimeInMillis)
     }
 
-    fun getTimeAgoFromMilliSeconds(timeStampInMillis: Long): String {
-        val currentTimeStamp = DateTime.now()
+    fun getTimeAgoFromMilliSeconds(timeStampInMillis: Long, currentTimeInMillis: Long = DateTime.now().millis): String {
+        val currentTimeStamp = DateTime(currentTimeInMillis)
         val timestamp = DateTime(timeStampInMillis)
         if (timestamp > currentTimeStamp) return ""
 

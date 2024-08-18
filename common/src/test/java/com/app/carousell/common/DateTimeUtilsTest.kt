@@ -10,7 +10,7 @@ class DateTimeUtilsTest(val testName: String, val input: Long?, val expected: St
 
     @Test
     fun getTimeAgoFromSeconds() {
-        val result = DateTimeUtils.getTimeAgoFromSeconds(input)
+        val result = DateTimeUtils.getTimeAgoFromSeconds(input, 1724002445876L)
         Assert.assertEquals(expected, result)
     }
 
