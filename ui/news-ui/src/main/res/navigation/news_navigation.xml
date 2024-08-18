@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/carousellNewsFragment"
-        android:name="com.app.carousell.newsui.presentation.fragment.CarousellNewsFragment"
+        android:name="com.app.carousell.newsui.presentation.fragment.ArticlesFragment"
         android:label="fragment_carousell_news"
-        tools:layout="@layout/fragment_carousell_news" />
+        tools:layout="@layout/fragment_articles" />
 
 </navigation>

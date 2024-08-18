@@ -18,7 +18,7 @@ import com.app.carousell.common.extension.ViewExtension.visible
 import com.app.carousell.core.coreComponent
 import com.app.carousell.newsdata.model.Articles
 import com.app.carousell.newsui.R
-import com.app.carousell.newsui.databinding.FragmentCarousellNewsBinding
+import com.app.carousell.newsui.databinding.FragmentArticlesBinding
 import com.app.carousell.newsui.di.component.DaggerNewsApplicationComponent
 import com.app.carousell.newsui.presentation.adapter.ArticlesAdapter
 import com.app.carousell.newsui.presentation.viewmodel.ArticleViewModel
@@ -27,10 +27,10 @@ import com.app.carousell.newsui.utils.ArticleSort
 import com.app.carousell.newsui.utils.ArticlesSortUtil
 import javax.inject.Inject
 
-class CarousellNewsFragment : Fragment() {
+class ArticlesFragment : Fragment() {
 
-    private var _binding: FragmentCarousellNewsBinding? = null
-    private val binding: FragmentCarousellNewsBinding
+    private var _binding: FragmentArticlesBinding? = null
+    private val binding: FragmentArticlesBinding
         get() = _binding!!
 
     @Inject
@@ -53,7 +53,7 @@ class CarousellNewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCarousellNewsBinding.inflate(inflater, container, false)
+        _binding = FragmentArticlesBinding.inflate(inflater, container, false)
         return _binding?.root
     }
 
@@ -72,7 +72,7 @@ class CarousellNewsFragment : Fragment() {
         binding.rvArticles.run {
             articlesAdapter = ArticlesAdapter()
             itemAnimator = null
-            layoutManager = LinearLayoutManager(this@CarousellNewsFragment.context)
+            layoutManager = LinearLayoutManager(this@ArticlesFragment.context)
             addItemDecoration(
                 com.app.carousell.common.SpacingItemDecoration(
                     resources.getDimensionPixelSize(
@@ -157,7 +157,7 @@ class CarousellNewsFragment : Fragment() {
     }
 
     private fun openPopupMenu(view: View) {
-        val popupMenu = PopupMenu(this@CarousellNewsFragment.context, view)
+        val popupMenu = PopupMenu(this@ArticlesFragment.context, view)
         popupMenu.menuInflater.inflate(R.menu.menu_article_filter, popupMenu.menu)
         popupMenu.setOnMenuItemClickListener(object : PopupMenu.OnMenuItemClickListener {
             override fun onMenuItemClick(item: MenuItem): Boolean {

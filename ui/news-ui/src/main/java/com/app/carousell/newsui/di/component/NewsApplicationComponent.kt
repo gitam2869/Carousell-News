@@ -3,7 +3,7 @@ package com.app.carousell.newsui.di.component
 import com.app.carousell.common.scopes.Fragment
 import com.app.carousell.core.di.component.CoreComponent
 import com.app.carousell.newsdata.di.module.NewsDataModule
-import com.app.carousell.newsui.presentation.fragment.CarousellNewsFragment
+import com.app.carousell.newsui.presentation.fragment.ArticlesFragment
 import dagger.Component
 
 @Fragment
@@ -15,6 +15,6 @@ interface NewsApplicationComponent {
         fun create(coreComponent: CoreComponent): NewsApplicationComponent
     }
 
-    fun inject(carousellNewsFragment: CarousellNewsFragment)
+    fun inject(articlesFragment: ArticlesFragment)
 
 }
