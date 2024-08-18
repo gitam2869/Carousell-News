@@ -16,23 +16,23 @@ class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewM
     val articleLiveData: LiveData<NetworkResult<Articles>>
         get() = _articleLiveData
 
-    fun getArticles(comparator: Comparator<Article>) {
+    private val _articleSortedLiveData = MutableLiveData<NetworkResult<Articles>>()
+    val articleSortedLiveData: LiveData<NetworkResult<Articles>>
+        get() = _articleSortedLiveData
+
+    fun getArticles() {
         if (_articleLiveData.value == null) {
             articleRepository.getArticles {
-                if (it is NetworkResult.Success) {
-                    it.data?.let { it1 -> sortArticles(it1, comparator) }
-                } else {
-                    _articleLiveData.value = it
-                }
+                _articleLiveData.value = it
             }
         } else {
             _articleLiveData.value = _articleLiveData.value
         }
     }
 
-    fun sortArticles(articles: Articles, comparator: Comparator<Article>) {
+    fun sortArticles(articles: Articles?, comparator: Comparator<Article>) {
         articleRepository.sortArticles(articles, comparator) {
-            _articleLiveData.value = it
+            _articleSortedLiveData.value = it
         }
     }
 

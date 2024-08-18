@@ -40,7 +40,7 @@ class ArticlesAdapter : RecyclerView.Adapter<ArticlesViewHolder>() {
         differ.submitList(list)
     }
 
-    fun getIteList(): List<Article> {
+    fun getItemList(): List<Article> {
         return differ.currentList
     }
 }

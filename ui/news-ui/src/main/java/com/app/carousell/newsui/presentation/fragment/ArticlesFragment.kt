@@ -63,6 +63,7 @@ class ArticlesFragment : Fragment() {
             ViewModelProvider(this, articleViewModelFactory)[ArticleViewModel::class.java]
         recyclerViewSetup()
         observeArticles()
+        observeSortedArticles()
         getArticles()
         registerClickListeners()
         sharedPreferences.edit().putInt("dd", 1).apply()
@@ -93,6 +94,27 @@ class ArticlesFragment : Fragment() {
                 }
 
                 is NetworkResult.Success -> {
+                    sortArticlesByRecent(it.data)
+                }
+
+                is NetworkResult.Error -> {
+                    hideFilterMenu()
+                    hideLoading()
+                    showMessage(it.message ?: "")
+                }
+            }
+        }
+    }
+
+    private fun observeSortedArticles(){
+        articleViewModel.articleSortedLiveData.observe(viewLifecycleOwner){
+            when (it) {
+                is NetworkResult.Loading -> {
+                    showLoading()
+                    it.message?.let { it1 -> showMessage(it1) }
+                }
+
+                is NetworkResult.Success -> {
                     hideLoading()
                     hideMessage()
                     it.data?.let { it1 ->
@@ -111,7 +133,7 @@ class ArticlesFragment : Fragment() {
     }
 
     private fun getArticles() {
-        articleViewModel.getArticles(ArticlesSortUtil.getArticlesSortComparatorByType(ArticleSort.Recent))
+        articleViewModel.getArticles()
     }
 
     private fun registerClickListeners() {
@@ -163,24 +185,12 @@ class ArticlesFragment : Fragment() {
             override fun onMenuItemClick(item: MenuItem): Boolean {
                 return when (item.itemId) {
                     R.id.action_recent -> {
-                        isFiltering = true
-                        val itemList = articlesAdapter.getIteList()
-                        articlesAdapter.submitList(emptyList())
-                        articleViewModel.sortArticles(
-                            itemList,
-                            ArticlesSortUtil.getArticlesSortComparatorByType(ArticleSort.Recent)
-                        )
+                        sortArticlesByRecent(articlesAdapter.getItemList())
                         true
                     }
 
                     R.id.action_popular -> {
-                        isFiltering = true
-                        val itemList = articlesAdapter.getIteList()
-                        articlesAdapter.submitList(emptyList())
-                        articleViewModel.sortArticles(
-                            itemList,
-                            ArticlesSortUtil.getArticlesSortComparatorByType(ArticleSort.Popular)
-                        )
+                        sortArticlesByPopular(articlesAdapter.getItemList())
                         true
                     }
 
@@ -189,6 +199,24 @@ class ArticlesFragment : Fragment() {
             }
         })
         popupMenu.show()
+    }
+
+    private fun sortArticlesByRecent(iteList: Articles?) {
+        isFiltering = true
+        articlesAdapter.submitList(emptyList())
+        articleViewModel.sortArticles(
+            iteList,
+            ArticlesSortUtil.getArticlesSortComparatorByType(ArticleSort.Recent)
+        )
+    }
+
+    private fun sortArticlesByPopular(itemList: Articles?) {
+        isFiltering = true
+        articlesAdapter.submitList(emptyList())
+        articleViewModel.sortArticles(
+            itemList,
+            ArticlesSortUtil.getArticlesSortComparatorByType(ArticleSort.Popular)
+        )
     }
 
     override fun onDestroyView() {
