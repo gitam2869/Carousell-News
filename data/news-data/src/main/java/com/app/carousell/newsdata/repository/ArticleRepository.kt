@@ -60,10 +60,15 @@ class ArticleRepository @Inject constructor(private val newsService: NewsService
     }
 
     fun sortArticles(
-        articles: Articles,
+        articles: Articles?,
         comparator: Comparator<Article>,
         callback: (NetworkResult<Articles>) -> Unit
     ) {
+        if(articles.isNullOrEmpty()) {
+            callback(NetworkResult.Error("List is empty or null"))
+            return
+        }
+
         callback(NetworkResult.Loading("Filtering Data"))
         Single.fromCallable {
             return@fromCallable articles.sortedWith(comparator)
