@@ -9,8 +9,12 @@ import org.joda.time.Years
 object DateTimeUtils {
 
     fun getTimeAgoFromSeconds(timestampInSeconds: Long?): String {
-        if (timestampInSeconds == null) return ""
-        return getTimeAgoFromMilliSeconds(timestampInSeconds * 1000)
+        if (timestampInSeconds == null || timestampInSeconds <= 0) return ""
+        var timeInMillis = timestampInSeconds
+        if(timestampInSeconds.toString().length == 10) //currently assume 10 digits represents seconds as per api response
+            timeInMillis *= 1000
+
+        return getTimeAgoFromMilliSeconds(timeInMillis)
     }
 
     fun getTimeAgoFromMilliSeconds(timeStampInMillis: Long): String {
