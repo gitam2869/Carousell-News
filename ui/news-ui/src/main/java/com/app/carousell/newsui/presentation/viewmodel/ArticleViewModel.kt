@@ -22,6 +22,9 @@ class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewM
 
     fun getArticles() {
         if (_articleLiveData.value == null) {
+            //we must all loading state from viewmodel only, because it is part of ui not repository
+            //and it helps while doing unit testing
+            _articleLiveData.value = NetworkResult.Loading("Fetching Data")
             articleRepository.getArticles {
                 _articleLiveData.value = it
             }
@@ -31,8 +34,13 @@ class ArticleViewModel(private val articleRepository: ArticleRepository) : ViewM
     }
 
     fun sortArticles(articles: Articles?, comparator: Comparator<Article>) {
-        articleRepository.sortArticles(articles, comparator) {
-            _articleSortedLiveData.value = it
+        if (articles == null) {
+            _articleSortedLiveData.value = NetworkResult.Error("Can not sort because list is empty")
+        } else {
+            _articleSortedLiveData.value = NetworkResult.Loading("Filtering Data")
+            articleRepository.sortArticles(articles, comparator) {
+                _articleSortedLiveData.value = it
+            }
         }
     }
 

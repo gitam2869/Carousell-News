@@ -25,14 +25,17 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
     buildFeatures {
         buildConfig = true
+    }
+    testOptions.unitTests {
+        isIncludeAndroidResources = true
     }
 }
 
@@ -54,7 +57,15 @@ dependencies {
     implementation(libs.rxandroid)
     implementation(libs.rxjava)
 
+
     testImplementation(libs.junit)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.androidx.junit)
+    testImplementation(libs.androidx.test.core)
+    testImplementation(libs.androidx.core.testing)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.kotlin)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }

@@ -13,13 +13,14 @@ import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.HttpException
 import java.net.UnknownHostException
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 class ArticleRepository @Inject constructor(private val newsService: NewsService) {
 
     private val compositeDisposable = CompositeDisposable()
 
     fun getArticles(callback: (NetworkResult<Articles>) -> Unit) {
-        callback(NetworkResult.Loading("Fetching Data"))
         newsService.getArticles()
             .subscribeOn(Schedulers.io())
             .map {
@@ -60,19 +61,14 @@ class ArticleRepository @Inject constructor(private val newsService: NewsService
     }
 
     fun sortArticles(
-        articles: Articles?,
+        articles: Articles,
         comparator: Comparator<Article>,
         callback: (NetworkResult<Articles>) -> Unit
     ) {
-        if(articles.isNullOrEmpty()) {
-            callback(NetworkResult.Error("List is empty or null"))
-            return
-        }
-
-        callback(NetworkResult.Loading("Filtering Data"))
         Single.fromCallable {
             return@fromCallable articles.sortedWith(comparator)
-        }.subscribeOn(Schedulers.computation())
+        }.delay(1, TimeUnit.SECONDS)
+            .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Articles> {
                 override fun onSubscribe(d: Disposable) {

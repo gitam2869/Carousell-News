@@ -99,7 +99,7 @@ class ArticleViewModelTest {
      * Sort Articles
      */
     @Test
-    fun sortArticles_sortBasedOnTime() {
+    fun sortArticles_emptyList_Success() {
         val list = emptyList<Article>()
         `when`(articleRepository.sortArticles(eq(articles), eq(comparator), callback.capture())
         ).thenAnswer {
@@ -108,6 +108,31 @@ class ArticleViewModelTest {
         articleViewModel.sortArticles(articles, comparator)
         val result = articleViewModel.articleSortedLiveData.getOrAwaitValue()
         Assert.assertEquals(list, result.data)
+    }
+
+    @Test
+    fun sortArticles_nullList_Error() {
+        val list = null
+        `when`(articleRepository.sortArticles(eq(articles), eq(comparator), callback.capture())
+        ).thenAnswer {
+            callback.firstValue.invoke(NetworkResult.Error("Can not sort because list is empty"))
+        }
+        articleViewModel.sortArticles(articles, comparator)
+        val result = articleViewModel.articleSortedLiveData.getOrAwaitValue()
+        Assert.assertEquals(true, result is NetworkResult.Error)
+    }
+
+
+    @Test
+    fun sortArticles_list_success() {
+        val list = listOf(Article(), Article())
+        `when`(articleRepository.sortArticles(eq(articles), eq(comparator), callback.capture())
+        ).thenAnswer {
+            callback.firstValue.invoke(NetworkResult.Success(list))
+        }
+        articleViewModel.sortArticles(articles, comparator)
+        val result = articleViewModel.articleSortedLiveData.getOrAwaitValue()
+        Assert.assertEquals(list.size, result.data?.size)
     }
 
     @After
