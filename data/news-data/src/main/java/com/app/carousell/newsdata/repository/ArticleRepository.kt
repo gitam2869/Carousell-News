@@ -67,7 +67,7 @@ class ArticleRepository @Inject constructor(private val newsService: NewsService
     ) {
         Single.fromCallable {
             return@fromCallable articles.sortedWith(comparator)
-        }.delay(1, TimeUnit.SECONDS)
+        }.delay(400, TimeUnit.MILLISECONDS)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : SingleObserver<Articles> {
